@@ -3,10 +3,87 @@
     <head>
         <link rel="stylesheet" href="style.css">
         <meta charset="UTF-8" />
-        <title>Title</title>
-        <script src="script.js" defer></script>
+        <title>Tasks</title>
+        <script src="header.js" defer></script> <!-- ===== Builds Layout ===== -->
+        <script src="footer.js" defer></script> <!-- ===== Builds Layout ===== -->
+        <script src="script.js" defer></script> <!-- ===== Shared/Global Logic ===== -->
+        <script src="tasks.js" defer></script>  <!-- ===== Page-Specific Logic ===== -->
     </head>
     <body>
-    <button id="dark-mode-toggle">🌙 Dark Mode</button>
+    <div id="header-placeholder"></div>
+    <h1>Task Manager</h1>
+
+<!-- ===== ADD TASK FORM ===== -->
+<section class="task-form">
+    <h2>Add New Task</h2>
+    <form id="task-form">
+        <input type="text" id="task-name" placeholder="Task name" required>
+        <textarea id="task-desc" placeholder="Description" required></textarea>
+        <label for="task-date">Due Date:</label>
+        <input type="date" id="task-date" required>
+        <label for="task-priority">Priority:</label>
+        <select id="task-priority" required>
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
+</section>
+
+<!-- ===== SUMMARY ===== -->
+<section class="task-summary">
+    <h2>Summary</h2>
+    <p>Total Tasks: <span id="total-tasks">0</span></p>
+    <p>Pending: <span id="pending-tasks">0</span></p>
+    <p>Completed: <span id="completed-tasks">0</span></p>
+</section>
+
+<!-- ===== TASK LIST ===== -->
+<section class="task-list">
+    <h2>Tasks</h2>
+    <!-- Filters and Sorting -->
+<div class="task-controls">
+    <!-- Priority Filter -->
+    <label for="priority-filter">Filter by Priority:</label>
+    <select id="priority-filter">
+        <option value="All" selected>All</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+    </select>
+
+    <!-- Status Filter -->
+    <label for="status-filter">Filter by Status:</label>
+    <select id="status-filter">
+        <option value="All" selected>All</option>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <!-- Sorting -->
+    <label for="sort-tasks">Sort by:</label>
+    <select id="sort-tasks">
+        <option value="none" selected>None</option>
+        <option value="name">Task Name</option>
+        <option value="date">Due Date</option>
+    </select>
+</div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="task-table-body"></tbody>
+    </table>
+</section>
+    <div id="footer-placeholder"></div>
     </body>
 </html>

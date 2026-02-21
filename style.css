@@ -6,6 +6,28 @@
     font-style: normal;
 }
 
+/* Root variables for light mode (default) */
+:root {
+    --bg-color: #fff;
+    --text-color: #222;
+    --link-color: #A05A2C;       /* crust color */
+    --link-hover: #7B3F1F;       /* darker crust */
+    --button-bg: #A05A2C;
+    --button-hover: #7B3F1F;
+    --shadow-color: rgba(0,0,0,0.2);
+}
+
+/* Dark mode variables */
+body.dark-mode {
+    --bg-color: #1e1e1e;
+    --text-color: #f1f1f1;
+    --link-color: #C68642;
+    --link-hover: #e0a159;
+    --button-bg: #C68642;
+    --button-hover: #8B5A2B;
+    --shadow-color: rgba(0,0,0,0.5);
+}
+
 /* Titles */
 h1 {
     text-align: center;
@@ -42,33 +64,14 @@ figure {
 }
 
 
-/* Root variables for light mode (default) */
-:root {
-    --bg-color: #fff;
-    --text-color: #222;
-    --link-color: #A05A2C;       /* crust color */
-    --link-hover: #7B3F1F;       /* darker crust */
-    --button-bg: #A05A2C;
-    --button-hover: #7B3F1F;
-    --shadow-color: rgba(0,0,0,0.2);
-}
 
-/* Dark mode variables */
-body.dark-mode {
-    --bg-color: #1e1e1e;
-    --text-color: #f1f1f1;
-    --link-color: #C68642;
-    --link-hover: #e0a159;
-    --button-bg: #C68642;
-    --button-hover: #8B5A2B;
-    --shadow-color: rgba(0,0,0,0.5);
-}
 
 /* Apply variables */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
 }
 
 a.cta-button {
@@ -99,9 +102,253 @@ a:hover {
     color: var(--link-hover);
 }
 
+/* ===== HEADER ===== */
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    box-shadow: 0 0.125rem 0.375rem var(--shadow-color);
+    z-index: 1000;
+}
 
-/* Footer*/
-footer {
+/* Layout */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+}
+
+/* Logo + Title */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.site-title {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 1.5rem;
+}
+
+/* Navigation */
+.nav-links a {
+    margin-left: 1rem;
+    text-decoration: none;
     font-size: 1rem;
-    line-height: 1.4;
+    font-weight: 500;
+    color: var(--link-color);
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--link-hover);
+}
+/*Hovering on any link of the navbar makes it bold and adds underlining with my color*/
+.nav-links a.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--link-color);
+}
+
+/* Footer styling */
+.site-footer {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--shadow-color);
+    font-size: 0.9rem;
+}
+
+.site-footer a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+    color: var(--link-hover);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-logo .logo {
+    height: 40px;
+    width: auto;
+}
+
+.footer-title {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.footer-contact p {
+    margin: 0.25rem 0;
+}
+
+/* Weather widget container */
+#weather-widget {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid var(--shadow-color);
+    border-radius: 0.5rem;
+    background-color: var(--bg-color);
+    box-shadow: 0 0.25rem 0.375rem var(--shadow-color);
+    text-align: center;
+}
+
+/* Each day as a card */
+.weather-day {
+    display: grid;
+    grid-template-columns: 3.75rem 1.875rem 10rem auto; 
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    border-radius: 0.3rem;
+    background-color: rgba(200,200,200,0.1);
+}
+
+/* Day name bold */
+.weather-day .day-name {
+    font-weight: bold;
+}
+
+/* Venue status colors */
+.weather-day .venue-status {
+    font-weight: bold;
+}
+.weather-day .venue-status.usable {
+    color: green;
+}
+.weather-day .venue-status.not-usable {
+    color: red;
+}
+.weather-day .venue-status.warning {
+    color: orange;
+}
+
+/* ===== TASK FORM ===== */
+.task-form, .task-summary, .task-list {
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.375rem var(--shadow-color);
+    background-color: var(--bg-color);
+}
+
+/* Form inputs */
+#task-form input,
+#task-form textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid var(--shadow-color);
+    padding: 0.5rem;
+    text-align: left;
+}
+
+/* Buttons */
+.task-btn {
+    margin-right: 0.3rem;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Priority colors */
+.priority-High {
+    color: #ff4d4d; 
+    font-weight: bold;
+}
+.priority-Medium {
+    color: #ffbb00; 
+}
+.priority-Low {
+    color: #4CAF50; 
+}
+
+.task-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.task-controls label {
+    margin-right: 0.25rem;
+}
+
+/* Dashboard container for weather + chart */
+.dashboard-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+/* Make each section flexible */
+#weather-widget, #tasks-dashboard {
+    flex: 1 1 300px; /* grow, shrink, basis */
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem var(--shadow-color);
+}
+
+#recent-activity {
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border: 1px solid var(--shadow-color);
+    border-radius: 0.5rem;
+    max-width: 400px;
+    margin-top: 1rem;
+}
+
+#activity-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#activity-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }

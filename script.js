@@ -1,5 +1,6 @@
-
+/*Script containing dark mode functionality and button*/
 document.addEventListener('DOMContentLoaded', () => {
+    
     const toggle = document.querySelector('#dark-mode-toggle'); // select the dark mode button
     const body = document.querySelector('body');                // select the body element
 

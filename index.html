@@ -4,9 +4,16 @@
         <link rel="stylesheet" href="style.css">
         <meta charset="UTF-8" />
         <title>The Rolling Scones</title>
+        <script src="header.js" defer></script>
+        <script src="footer.js" defer></script>
         <script src="script.js" defer></script>
+        <script src="weather.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> <!-- Include Javascript Library for creating charts -->
+        <script src="dashboard.js" defer></script>
+        <script src="recentActivity.js" defer></script>
     </head>
     <body>
+        <div id="header-placeholder"></div>
         <button id="dark-mode-toggle">🌙 Dark Mode</button>
         <h1>Welcome!</h1>
         <figure>
@@ -29,5 +36,28 @@
             <li>Clean up after event</li>
         </ul>
         <a href="tasks.html" class="cta-button">Let's get cooking!</a>
+        <!-- Wrap weather + dashboard -->
+    <section id="dashboard-container" class="dashboard-container">
+        <!-- Weather widget -->
+            <section id="weather-widget">
+                <h2>Venue Weather Update</h2>
+            <div id="weather-status"></div>
+            </section>
+
+        <!-- Tasks pie chart -->
+        <section id="tasks-dashboard">
+            <h2>Pending tasks by Priority</h2>
+            <canvas id="priorityChart" width="200" height="200"></canvas>
+        </section>
+    </section>
+        
+        <section id="recent-activity">
+        <h2>Recent Activity</h2>
+        <ul id="activity-list">
+        <!-- Latest task activity will appear here -->
+        </ul>
+</section>
+        
+        <div id="footer-placeholder"></div>
     </body>
 </html>
