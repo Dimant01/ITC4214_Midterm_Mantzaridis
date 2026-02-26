@@ -1,15 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <meta charset="UTF-8" />
-        <title>About Us</title>
-        <script src="header.js" defer></script>
-        <script src="footer.js" defer></script>
-        <script src="script.js" defer></script>
-    </head>
-    <body>
-    <div id="header-placeholder"></div>
-    <div id="footer-placeholder"></div>
-    </body>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <title>About Us</title>
+
+    <script src="header.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="about.js" defer></script>
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+<main id="main-content">
+<h1>About The Rolling Scones</h1>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section class="about-section">
+    <h2>Our Application</h2>
+    <p>
+        The Rolling Scones Task Manager is a web-based application designed to help catering teams
+        efficiently organize and manage their daily operations.
+    </p>
+
+    <p>
+        This application aims to improve user experience by providing a user-friendly design that will be able to assist
+        in tasks ranging from preparing menus to delivering ingredients and managing event logistics.
+    </p>
+
+    <h3>Key Features</h3>
+    <ul>
+        <li>✔ Task creation with priorities and due dates</li>
+        <li>✔ Task filtering and sorting</li>
+        <li>✔ Progress tracking (completed vs pending)</li>
+        <li>✔ Dashboard with visual analytics</li>
+        <li>✔ Weather widget for event planning</li>
+        <li>✔ Activity tracking system</li>
+        <li>✔ Dark mode support</li>
+    </ul>
+</section>
+
+<!-- ===== TEAM SECTION ===== -->
+<section class="team-section">
+    <h2>Development Team</h2>
+
+    <div class="team-grid">
+        <!-- Member 1 -->
+        <div class="team-card">
+            <img src="Images/avatar1.png" alt="Avatar">
+            <h3>Alex Johnson</h3>
+            <p class="role">Frontend Developer</p>
+            <p>Focused on UI/UX design and responsive layout implementation.</p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-card">
+            <img src="Images/avatar2.png" alt="Avatar">
+            <h3>John Smith</h3>
+            <p class="role">Backend Developer</p>
+            <p>Responsible for data handling and application logic.</p>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="team-card">
+            <img src="Images/avatar3.png" alt="Avatar">
+            <h3>Martha Jones</h3>
+            <p class="role">Project Manager</p>
+            <p>Coordinated development and ensured timely delivery.</p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="team-card">
+            <img src="Images/avatar4.png" alt="Avatar">
+            <h3>Jane Doe</h3>
+            <p class="role">QA Tester</p>
+            <p>Tested features and ensured application stability.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIAL CAROUSEL ===== -->
+<section class="carousel-section">
+    <h2>What Users Say</h2>
+
+    <div class="carousel">
+    <button class="carousel-btn prev">❮</button>
+
+    <div class="carousel-track" id="carousel-track">
+        <div class="carousel-item"><div class="carousel-content">"This app made event planning so much easier!"</div></div>
+        <div class="carousel-item"><div class="carousel-content">"Simple, clean, and very effective task tracking."</div></div>
+        <div class="carousel-item"><div class="carousel-content">"The dashboard and filters save us so much time."</div></div>
+    </div>
+
+    <button class="carousel-btn next">❯</button>
+</div>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+</body>
 </html>

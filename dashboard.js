@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('priorityChart').getContext('2d');
+   const ctx = document.querySelector('#priorityChart').getContext('2d');
 
     // Function to count tasks by priority
     function getChartData() {

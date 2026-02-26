@@ -7,9 +7,53 @@
         <script src="header.js" defer></script>
         <script src="footer.js" defer></script>
         <script src="script.js" defer></script>
+        <script src="contact.js" defer></script>
     </head>
     <body>
     <div id="header-placeholder"></div>
+    <main id="main-content">
+        <h1>Contact Us</h1>
+
+        <!-- ===== CONTACT FORM ===== -->
+        <section class="contact-form">
+            <h2>Send us a message</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" rows="5" required></textarea>
+
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </section>
+
+        <!-- ===== GOOGLE MAPS ===== -->
+        <section class="map">
+            <h2>Our Location</h2>
+            <iframe
+                title="Google Map showing The Rolling Scones office location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2988.24156258183!2d23.83052597570424!3d38.0052683719282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a199709f059559%3A0xad1dacf4713268b2!2sAmerican%20College%20of%20Greece!5e1!3m2!1sen!2sgr!4v1771846906872!5m2!1sen!2sgr" 
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+
+        <!-- ===== SOCIAL MEDIA LINKS ===== -->
+        <section class="social-media">
+            <h2>Follow Us</h2>
+            <div class="social-links">
+                <a href="https://www.facebook.com/therollingscones" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/therollingscones" target="_blank">Instagram</a>
+                <a href="https://twitter.com/therollingscones" target="_blank">Twitter</a>
+            </div>
+        </section>
+    </main>
     <div id="footer-placeholder"></div>
     </body>
 </html>

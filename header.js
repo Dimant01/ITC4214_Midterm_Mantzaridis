@@ -3,16 +3,20 @@ const headerHTML = `
 <header class="site-header">
     <div class="header-container">
         <div class="logo-title">
-            <img src="Images/Logo.png" alt="Logo" class="logo">
+            <img src="images/logo.png" alt="Logo" class="logo">
             <span class="site-title">The Rolling Scones</span>
         </div>
 
+        <!-- Hamburger button -->
+        <button class="menu-toggle">☰</button>
+
+        <!-- Navigation -->
         <nav class="nav-links">
             <a href="index.html">Home</a>
             <a href="tasks.html">Tasks</a>
             <a href="about.html">About</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="blank.html">Blank</a>
+            <a href="contact.html">Contact</a>
+            <a href="faq.html">FAQ</a>
         </nav>
     </div>
 </header>
@@ -32,4 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    const menuToggle = placeholder.querySelector('.menu-toggle');
+    const navLinks = placeholder.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    });
+    
 });

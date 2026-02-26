@@ -8,18 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeEnabled = localStorage.getItem('darkMode') === 'enabled';
     if (darkModeEnabled) {
         body.classList.add('dark-mode');
-        toggle.textContent = '☀ Light Mode';
-    } else {
-        toggle.textContent = '🌙 Dark Mode';
-    }
+        toggle.checked = true; // mark checkbox as on
+    } 
 
-    //Handle dark mode toggle click
-    toggle.addEventListener('click', () => {
+    // Handle toggle change
+    toggle.addEventListener('change', () => {
         body.classList.toggle('dark-mode');
-
-        const isDark = body.classList.contains('dark-mode');
-        localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-
-        toggle.textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+        localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
     });
 });
