@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const weatherStatus = document.querySelector('#weather-status');
 
     const API_KEY = "4f01f0b945ff218afa20d31b9841d103";
-    const CITY = "Athens";
+    const CITY = "Athens,GR";
 
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&units=metric&appid=${API_KEY}`)
         .then(response => response.json())

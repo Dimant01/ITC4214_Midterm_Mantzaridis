@@ -264,6 +264,15 @@ a:hover {
     background-color: var(--bg-color);
 }
 
+.task-name-cell, .task-desc-cell, .activity-item{
+    max-width: 100%;
+    max-height: 3rem;
+    overflow-y: auto;
+    white-space: normal;     /* allow text to wrap */
+    word-wrap: break-word;   /* break long words if needed */
+    word-break: break-word;  /* extra safety for very long words */
+}
+
 /* Form inputs */
 #task-form input,
 #task-form textarea {
@@ -660,4 +669,8 @@ textarea {
 .theme-switch input:checked + .slider::after {
     content: "🌙";
     left: 1.875rem;   
+}
+
+.td{
+    overflow: scroll;
 }

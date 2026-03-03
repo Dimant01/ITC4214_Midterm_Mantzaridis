@@ -13,10 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortSelect = document.querySelector('#sort-tasks');
 
     // ===== TASKS & ACTIVITY ARRAYS =====
-    window.tasks = JSON.parse(localStorage.getItem('tasks')) || []; // load from localStorage
+    window.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let tasks = window.tasks;
 
     let taskActivity = JSON.parse(localStorage.getItem('taskActivity')) || [];
+
+    let editIndex = null;
 
     // ===== SAVE FUNCTIONS =====
     function saveTasks() {
@@ -24,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveActivity() {
-        // Keep only last 10 entries
         if (taskActivity.length > 10) {
             taskActivity = taskActivity.slice(-10);
         }
@@ -48,19 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let filteredTasks = [...tasks];
 
-        // ----- FILTER by priority -----
+        // FILTERS
         const priorityValue = priorityFilter.value;
         if (priorityValue !== "All") {
             filteredTasks = filteredTasks.filter(t => t.priority === priorityValue);
         }
 
-        // ----- FILTER by status -----
         const statusValue = statusFilter.value;
         if (statusValue !== "All") {
-            filteredTasks = filteredTasks.filter(t => statusValue === "Completed" ? t.completed : !t.completed);
+            filteredTasks = filteredTasks.filter(t =>
+                statusValue === "Completed" ? t.completed : !t.completed
+            );
         }
 
-        // ----- SORTING -----
+        // SORT
         const sortValue = sortSelect.value;
         if (sortValue === "name") {
             filteredTasks.sort((a, b) => a.name.localeCompare(b.name));
@@ -68,56 +70,106 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredTasks.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
 
-        // ----- RENDER ROWS -----
+        // RENDER
         filteredTasks.forEach((task) => {
             const row = document.createElement('tr');
             if (task.completed) row.classList.add('completed');
 
             row.innerHTML = `
-                <td>${task.name}</td>
-                <td>${task.desc}</td>
+                <td><div class="task-name-cell">${task.name}</div></td>
+                <td><div class="task-desc-cell">${task.desc}</div></td>
                 <td>${task.date}</td>
                 <td class="priority-${task.priority}">${task.priority}</td>
                 <td>${task.completed ? 'Completed' : 'Pending'}</td>
                 <td>
                     <button class="task-btn complete-btn">✔</button>
+                    <button class="task-btn edit-btn">✏</button>
                     <button class="task-btn delete-btn">🗑</button>
                 </td>
             `;
 
-            // Complete button
-            row.querySelector('.complete-btn').addEventListener('click', () => {
+            // COMPLETE
+            row.querySelector('.complete-btn').addEventListener('click', () => toggleTaskCompletion(task));
+            
+            
+            // DELETE
+            row.querySelector('.delete-btn').addEventListener('click', () => taskDeletion(task));
+                
+            
+
+            // EDIT (INLINE)
+            row.querySelector('.edit-btn').addEventListener('click', () => taskEdit(task, row));
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Button Related Functions:
+    function toggleTaskCompletion(task){
                 task.completed = !task.completed;
 
-                // Record activity
                 taskActivity.push(`${task.completed ? 'Completed' : 'Reopened'} task: "${task.name}"`);
                 saveActivity();
 
                 saveTasks();
                 renderTasks();
                 updateSummary();
-                document.dispatchEvent(new CustomEvent('tasksUpdated')); // update dashboard and activity
-            });
+                document.dispatchEvent(new CustomEvent('tasksUpdated'));
+            }
 
-            // Delete button
-            row.querySelector('.delete-btn').addEventListener('click', () => {
-                tasks.splice(tasks.indexOf(task), 1);
+    function taskDeletion(task){
+        tasks.splice(tasks.indexOf(task), 1);
 
-                // Record activity
-                taskActivity.push(`Deleted task: "${task.name}"`);
-                saveActivity();
+        taskActivity.push(`Deleted task: "${task.name}"`);
+        saveActivity();
 
-                saveTasks();
-                renderTasks();
-                updateSummary();
-                document.dispatchEvent(new CustomEvent('tasksUpdated')); // update dashboard and activity
-            });
-
-            tableBody.appendChild(row);
-        });
+        saveTasks();
+        renderTasks();
+        updateSummary();
+        document.dispatchEvent(new CustomEvent('tasksUpdated'));
     }
+    
+    function taskEdit(task, row){
+        row.innerHTML = `
+                    <td><input type="text" value="${task.name}" class="edit-name"></td>
+                    <td><input type="text" value="${task.desc}" class="edit-desc"></td>
+                    <td><input type="date" value="${task.date}" class="edit-date"></td>
+                    <td>
+                        <select class="edit-priority">
+                            <option ${task.priority === 'High' ? 'selected' : ''}>High</option>
+                            <option ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                            <option ${task.priority === 'Low' ? 'selected' : ''}>Low</option>
+                        </select>
+                    </td>
+                    <td>${task.completed ? 'Completed' : 'Pending'}</td>
+                    <td>
+                        <button class="task-btn save-btn">💾</button>
+                        <button class="task-btn cancel-btn">❌</button>
+                    </td>
+                `;
 
-    // ===== EVENT LISTENERS FOR FILTERS & SORTING =====
+                // SAVE
+                row.querySelector('.save-btn').addEventListener('click', () => {
+                    task.name = row.querySelector('.edit-name').value;
+                    task.desc = row.querySelector('.edit-desc').value;
+                    task.date = row.querySelector('.edit-date').value;
+                    task.priority = row.querySelector('.edit-priority').value;
+
+                    taskActivity.push(`Edited task: "${task.name}"`);
+                    saveActivity();
+
+                    saveTasks();
+                    renderTasks();
+                    updateSummary();
+                });
+
+                // CANCEL
+                row.querySelector('.cancel-btn').addEventListener('click', () => {
+                    renderTasks();
+                });
+    }
+    
+    // ===== FILTER EVENTS =====
     priorityFilter.addEventListener('change', renderTasks);
     statusFilter.addEventListener('change', renderTasks);
     sortSelect.addEventListener('change', renderTasks);
@@ -131,20 +183,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const date = document.querySelector('#task-date').value;
         const priority = document.querySelector('#task-priority').value;
 
-        // Add new task
-        tasks.push({ name, desc, date, priority, completed: false });
+        if (editIndex !== null) {
+            tasks[editIndex].name = name;
+            tasks[editIndex].desc = desc;
+            tasks[editIndex].date = date;
+            tasks[editIndex].priority = priority;
 
-        // Record activity
-        taskActivity.push(`Added task: "${name}"`);
+            taskActivity.push(`Edited task: "${name}`);
+            editIndex = null;
+        } else {
+            tasks.push({ name, desc, date, priority, completed: false });
+            taskActivity.push(`Added task: "${name}"`);
+        }
+
         saveActivity();
-
         saveTasks();
-        document.dispatchEvent(new CustomEvent('tasksUpdated')); // update dashboard and activity
+        document.dispatchEvent(new CustomEvent('tasksUpdated'));
 
-        // Reset form
         form.reset();
+        document.querySelector('#task-form button').textContent = "Add Task";
 
-        // Update table and summary
         renderTasks();
         updateSummary();
     });
